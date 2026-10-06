@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyPoSNc+eULLl2SRDSP8MxpT",
+      "authorship_tag": "ABX9TyPbpZzKnbt6hXiBW7WQMmzO",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,15 +28,59 @@
     },
     {
       "cell_type": "code",
+      "execution_count": 3,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "94ef8a0f",
-        "outputId": "fcb2bc25-c6c0-450e-f038-0f7ef83e5b1e"
+        "id": "h0r8_AhjACBp",
+        "outputId": "d05129ce-381b-4ba1-e73d-bcd83de6b802"
       },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[['sunny', 'warm', 'normal', 'strong', 'warm', 'same', 'yes'], ['sunny', 'warm', 'high', 'strong', 'warm', 'same', 'yes'], ['rainy', 'cold', 'high', 'strong', 'warm', 'change', 'no'], ['sunny', 'warm', 'high', 'strong', 'cool', 'change', 'yes']]\n",
+            "\n",
+            " The total number of training instances are :  4\n",
+            "\n",
+            " The initial hypothesis is : \n",
+            "['0', '0', '0', '0', '0', '0']\n",
+            "\n",
+            " The hypothesis for the training instance 1 is :\n",
+            " ['sunny', 'warm', 'normal', 'strong', 'warm', 'same']\n",
+            "\n",
+            " The hypothesis for the training instance 2 is :\n",
+            " ['sunny', 'warm', '?', 'strong', 'warm', 'same']\n",
+            "\n",
+            " The hypothesis for the training instance 3 is :\n",
+            " ['sunny', 'warm', '?', 'strong', 'warm', 'same']\n",
+            "\n",
+            " The hypothesis for the training instance 4 is :\n",
+            " ['sunny', 'warm', '?', 'strong', '?', '?']\n",
+            "\n",
+            " The Maximally specific hypothesis for the training instance is \n",
+            "['sunny', 'warm', '?', 'strong', '?', '?']\n"
+          ]
+        }
+      ],
       "source": [
         "import csv\n",
+        "import os\n",
+        "\n",
+        "# Create a sample enjoysport.csv file if it does not exist\n",
+        "if not os.path.exists('enjoysport.csv'):\n",
+        "    sample_data = [\n",
+        "        ['sunny', 'warm', 'normal', 'strong', 'warm', 'same', 'yes'],\n",
+        "        ['sunny', 'warm', 'high', 'strong', 'warm', 'same', 'yes'],\n",
+        "        ['rainy', 'cold', 'high', 'strong', 'warm', 'change', 'no'],\n",
+        "        ['sunny', 'warm', 'high', 'strong', 'cool', 'change', 'yes']\n",
+        "    ]\n",
+        "    with open('enjoysport.csv', 'w', newline='') as f:\n",
+        "        writer = csv.writer(f)\n",
+        "        writer.writerows(sample_data)\n",
+        "\n",
         "a = []\n",
         "with open('enjoysport.csv', 'r') as csvfile:\n",
         "    for row in csv.reader(csvfile):\n",
@@ -56,37 +100,7 @@
         "          hypothesis[j] = '?'\n",
         " print(\"\\n The hypothesis for the training instance {} is :\\n\" .format(i+1),hypothesis)\n",
         "print(\"\\n The Maximally specific hypothesis for the training instance is \")\n",
-        "print(hypothesis)\n"
-      ],
-      "execution_count": 5,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "[['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'], ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'], ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'], ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']]\n",
-            "\n",
-            " The total number of training instances are :  4\n",
-            "\n",
-            " The initial hypothesis is : \n",
-            "['0', '0', '0', '0', '0', '0']\n",
-            "\n",
-            " The hypothesis for the training instance 1 is :\n",
-            " ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same']\n",
-            "\n",
-            " The hypothesis for the training instance 2 is :\n",
-            " ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
-            "\n",
-            " The hypothesis for the training instance 3 is :\n",
-            " ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
-            "\n",
-            " The hypothesis for the training instance 4 is :\n",
-            " ['Sunny', 'Warm', '?', 'Strong', '?', '?']\n",
-            "\n",
-            " The Maximally specific hypothesis for the training instance is \n",
-            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n"
-          ]
-        }
+        "print(hypothesis)"
       ]
     }
   ]
