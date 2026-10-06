@@ -1,0 +1,93 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPoSNc+eULLl2SRDSP8MxpT",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/nanubalasudheer-wq/MLA0204/blob/main/program1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "94ef8a0f",
+        "outputId": "fcb2bc25-c6c0-450e-f038-0f7ef83e5b1e"
+      },
+      "source": [
+        "import csv\n",
+        "a = []\n",
+        "with open('enjoysport.csv', 'r') as csvfile:\n",
+        "    for row in csv.reader(csvfile):\n",
+        "        a.append(row)\n",
+        "    print(a)\n",
+        "print(\"\\n The total number of training instances are : \",len(a))\n",
+        "num_attribute = len(a[0])-1\n",
+        "print(\"\\n The initial hypothesis is : \")\n",
+        "hypothesis = ['0']*num_attribute\n",
+        "print(hypothesis)\n",
+        "for i in range(0, len(a)):\n",
+        " if a[i][num_attribute] == 'yes':\n",
+        "  for j in range(0, num_attribute):\n",
+        "      if hypothesis[j] == '0' or hypothesis[j] == a[i][j]:\n",
+        "          hypothesis[j] = a[i][j]\n",
+        "      else:\n",
+        "          hypothesis[j] = '?'\n",
+        " print(\"\\n The hypothesis for the training instance {} is :\\n\" .format(i+1),hypothesis)\n",
+        "print(\"\\n The Maximally specific hypothesis for the training instance is \")\n",
+        "print(hypothesis)\n"
+      ],
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'], ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'], ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'], ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']]\n",
+            "\n",
+            " The total number of training instances are :  4\n",
+            "\n",
+            " The initial hypothesis is : \n",
+            "['0', '0', '0', '0', '0', '0']\n",
+            "\n",
+            " The hypothesis for the training instance 1 is :\n",
+            " ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            " The hypothesis for the training instance 2 is :\n",
+            " ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            " The hypothesis for the training instance 3 is :\n",
+            " ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            " The hypothesis for the training instance 4 is :\n",
+            " ['Sunny', 'Warm', '?', 'Strong', '?', '?']\n",
+            "\n",
+            " The Maximally specific hypothesis for the training instance is \n",
+            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
