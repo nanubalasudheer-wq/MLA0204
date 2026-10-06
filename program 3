@@ -1,0 +1,77 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPgfDSq+fnSUfwhw2ZP0jYo",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/nanubalasudheer-wq/MLA0204/blob/main/program%203\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 4,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nzGmpJ_m6d05",
+        "outputId": "ea55fd82-d6ea-4c9d-ae01-246202f34395"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Decision Tree:\n",
+            "Outlook\n",
+            "|-- Sunny\n",
+            "    Humidity\n",
+            "    |-- High\n",
+            "    |-- Normal\n",
+            "|-- Overcast\n",
+            "|-- Rain\n",
+            "    Wind\n",
+            "    |-- Weak\n",
+            "    |-- Strong\n"
+          ]
+        }
+      ],
+      "source": [
+        "def print_tree(tree, space=\"\"):\n",
+        "    if isinstance(tree, dict):\n",
+        "        for key, value in tree.items():\n",
+        "            print(space + key)\n",
+        "\n",
+        "            if isinstance(value, dict):\n",
+        "                for branch, result in value.items():\n",
+        "                    print(space + \"|-- \" + branch)\n",
+        "                    print_tree(result, space + \"    \")\n",
+        "            else:\n",
+        "                print(space + \"|-- \" + str(value))\n",
+        "\n",
+        "\n",
+        "print(\"Decision Tree:\")\n",
+        "print_tree(tree)"
+      ]
+    }
+  ]
+}
