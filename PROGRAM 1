@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyOdIaiM4n5ibHGGYDFoHHj4",
+      "authorship_tag": "ABX9TyOxaWBlZs8xnHUO3OVep+BI",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,26 +28,48 @@
     },
     {
       "cell_type": "code",
-      "execution_count": 1,
+      "execution_count": 11,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "fY8xsQO5MLfm",
-        "outputId": "26408a5d-4e8b-4f17-9d46-ef82338798e9"
+        "id": "el17ZJ8BJPzE",
+        "outputId": "b493641f-8073-40ab-dbb3-ff23cda5318d"
       },
       "outputs": [
         {
           "output_type": "stream",
           "name": "stdout",
           "text": [
-            "enjoysport.csv created successfully\n"
+            "[['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'], ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'], ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'], ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']]\n",
+            "\n",
+            "The total number of training instances are: 4\n",
+            "\n",
+            "The initial hypothesis is:\n",
+            "['0', '0', '0', '0', '0', '0']\n",
+            "\n",
+            "The hypothesis for training instance 1 is:\n",
+            "['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "The hypothesis for training instance 2 is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "The hypothesis for training instance 3 is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "The hypothesis for training instance 4 is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n",
+            "\n",
+            "The Maximally Specific Hypothesis is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n"
           ]
         }
       ],
       "source": [
+        "# @title Default title text\n",
         "import csv\n",
         "\n",
+        "# Create enjoysport.csv\n",
         "data = [\n",
         "    ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'],\n",
         "    ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'],\n",
@@ -59,7 +81,130 @@
         "    writer = csv.writer(file)\n",
         "    writer.writerows(data)\n",
         "\n",
-        "print(\"enjoysport.csv created successfully\")"
+        "# Read the CSV file\n",
+        "a = []\n",
+        "\n",
+        "with open('enjoysport.csv', 'r') as csvfile:\n",
+        "    for row in csv.reader(csvfile):\n",
+        "        a.append(row)\n",
+        "\n",
+        "print(a)\n",
+        "\n",
+        "print(\"\\nThe total number of training instances are:\", len(a))\n",
+        "\n",
+        "num_attribute = len(a[0]) - 1\n",
+        "\n",
+        "print(\"\\nThe initial hypothesis is:\")\n",
+        "hypothesis = ['0'] * num_attribute\n",
+        "print(hypothesis)\n",
+        "\n",
+        "# Find-S Algorithm\n",
+        "for i in range(len(a)):\n",
+        "    if a[i][num_attribute].lower() == 'yes':\n",
+        "\n",
+        "        for j in range(num_attribute):\n",
+        "\n",
+        "            if hypothesis[j] == '0':\n",
+        "                hypothesis[j] = a[i][j]\n",
+        "\n",
+        "            elif hypothesis[j] != a[i][j]:\n",
+        "                hypothesis[j] = '?'\n",
+        "\n",
+        "    print(\"\\nThe hypothesis for training instance\", i + 1, \"is:\")\n",
+        "    print(hypothesis)\n",
+        "\n",
+        "print(\"\\nThe Maximally Specific Hypothesis is:\")\n",
+        "print(hypothesis)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import csv\n",
+        "\n",
+        "# Create enjoysport.csv\n",
+        "data = [\n",
+        "    ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'],\n",
+        "    ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'],\n",
+        "    ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'],\n",
+        "    ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']\n",
+        "]\n",
+        "\n",
+        "with open('enjoysport.csv', 'w', newline='') as file:\n",
+        "    writer = csv.writer(file)\n",
+        "    writer.writerows(data)\n",
+        "\n",
+        "# Read the CSV file\n",
+        "a = []\n",
+        "\n",
+        "with open('enjoysport.csv', 'r') as csvfile:\n",
+        "    for row in csv.reader(csvfile):\n",
+        "        a.append(row)\n",
+        "\n",
+        "print(a)\n",
+        "\n",
+        "print(\"\\nThe total number of training instances are:\", len(a))\n",
+        "\n",
+        "num_attribute = len(a[0]) - 1\n",
+        "\n",
+        "print(\"\\nThe initial hypothesis is:\")\n",
+        "hypothesis = ['0'] * num_attribute\n",
+        "print(hypothesis)\n",
+        "\n",
+        "# Find-S Algorithm\n",
+        "for i in range(len(a)):\n",
+        "    if a[i][num_attribute].lower() == 'yes':\n",
+        "\n",
+        "        for j in range(num_attribute):\n",
+        "\n",
+        "            if hypothesis[j] == '0':\n",
+        "                hypothesis[j] = a[i][j]\n",
+        "\n",
+        "            elif hypothesis[j] != a[i][j]:\n",
+        "                hypothesis[j] = '?'\n",
+        "\n",
+        "    print(\"\\nThe hypothesis for training instance\", i + 1, \"is:\")\n",
+        "    print(hypothesis)\n",
+        "\n",
+        "print(\"\\nThe Maximally Specific Hypothesis is:\")\n",
+        "print(hypothesis)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "p887_tFmK3ze",
+        "outputId": "8b79215e-4114-4968-f67c-5db998bbee9f"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'yes'], ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'yes'], ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'no'], ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'yes']]\n",
+            "\n",
+            "The total number of training instances are: 4\n",
+            "\n",
+            "The initial hypothesis is:\n",
+            "['0', '0', '0', '0', '0', '0']\n",
+            "\n",
+            "The hypothesis for training instance 1 is:\n",
+            "['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "The hypothesis for training instance 2 is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "The hypothesis for training instance 3 is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "The hypothesis for training instance 4 is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n",
+            "\n",
+            "The Maximally Specific Hypothesis is:\n",
+            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n"
+          ]
+        }
       ]
     },
     {
@@ -101,10 +246,10 @@
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "t7A4eKhqMUWI",
-        "outputId": "d2d11554-2ce7-4214-85f0-b781625ae785"
+        "id": "ZB39FHsyLuxl",
+        "outputId": "64ef879a-4641-4299-f3bb-6548c69faf8a"
       },
-      "execution_count": 2,
+      "execution_count": 10,
       "outputs": [
         {
           "output_type": "stream",
